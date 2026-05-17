@@ -70,11 +70,13 @@ if st.button("Analisar região"):
                 if not lugares:
                     st.warning(
                         "Nenhum estabelecimento foi encontrado nessa região para o tipo de comércio selecionado."
+                        
                     )
+                    render_map(lat, lng, lugares)
                 else:
                     resultado = calcular_score(lugares)
                     st.subheader("📊 Resultado da análise")
-
+                    
                     col1, col2 = st.columns(2)
 
                     with col1:
@@ -98,11 +100,12 @@ if st.button("Analisar região"):
                             "Reviews médio",
                             resultado["reviews_medio"]
                         )
-                        if resultado["score"] >= 80:
-                            st.success("Excelente região para o negócio")
+                    if resultado["score"] >= 80:
+                        st.success("Excelente região para o negócio")
 
-                        elif resultado["score"] >= 60:
-                            st.warning("Região com potencial moderado")
+                    elif resultado["score"] >= 60:
+                        st.warning("Região com potencial moderado")
 
-                        else:
-                            st.error("Região com baixo potencial")
+                    else:
+                        st.error("Região com baixo potencial")
+                    render_map(lat, lng, lugares)
